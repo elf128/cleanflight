@@ -297,9 +297,10 @@ void resetSerialConfig(serialConfig_t *serialConfig)
         serialConfig->portConfigs[index].gps_baudrateIndex = BAUD_57600;
         serialConfig->portConfigs[index].telemetry_baudrateIndex = BAUD_AUTO;
         serialConfig->portConfigs[index].blackbox_baudrateIndex = BAUD_115200;
+        serialConfig->portConfigs[index].functionMask = FUNCTION_MSP;
     }
 
-    serialConfig->portConfigs[0].functionMask = FUNCTION_MSP;
+//    serialConfig->portConfigs[0].functionMask = FUNCTION_MSP;
 
 #ifdef CC3D
     // This allows MSP connection via USART & VCP so the board can be reconfigured.
@@ -385,7 +386,7 @@ static void resetConf(void)
     masterConfig.version = EEPROM_CONF_VERSION;
     masterConfig.mixerMode = MIXER_QUADX;
     featureClearAll();
-#if defined(CJMCU) || defined(SPARKY) || defined(COLIBRI_RACE) || defined(MOTOLAB)
+#if defined(CJMCU) || defined(SPARKY) || defined(COLIBRI_RACE) || defined(MOTOLAB) || defined(RGFC_OSD)
     featureSet(FEATURE_RX_PPM);
 #endif
 

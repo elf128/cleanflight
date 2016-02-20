@@ -128,6 +128,17 @@ const sonarHardware_t *sonarGetHardwareConfiguration(batteryConfig_t *batteryCon
 #elif defined(UNIT_TEST)
     UNUSED(batteryConfig);
     return 0;
+#elif defined( RGFC_OSD )
+    static const sonarHardware_t sonarRC78 = {
+        .trigger_pin = Pin_0,   // RX7 (PB0) - only 3.3v ( add a 1K Ohms resistor )
+        .trigger_gpio = GPIOB,
+        .echo_pin = Pin_1,      // RX8 (PB1) - only 3.3v ( add a 1K Ohms resistor )
+        .echo_gpio = GPIOB,
+        .exti_line = EXTI_Line1,
+        .exti_pin_source = GPIO_PinSource1,
+        .exti_irqn = EXTI1_IRQn
+    };
+    return &sonarRC78;
 #else
 #error Sonar not defined for target
 #endif
