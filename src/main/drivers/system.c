@@ -269,7 +269,7 @@ void delay(uint32_t ms)
 
 void failureMode(failureMode_e mode)
 {
-    int codeRepeatsRemaining = 10;
+    int codeRepeatsRemaining = 1;
     int codeFlashesRemaining;
     int shortFlashesRemaining;
 
