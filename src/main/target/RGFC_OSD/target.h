@@ -32,7 +32,7 @@
 #define MPU6500_SPI_INSTANCE             SPI2
 
 #define USE_SPI
-#define USE_SPI_DEVICE_1
+//#define USE_SPI_DEVICE_1
 #define USE_SPI_DEVICE_2
 
 #define SPI1_GPIO               GPIOB
@@ -76,15 +76,17 @@
 //#define MAG
 //#define USE_MAG_AK8975
 
-#define MAG_AK8975_ALIGN CW180_DEG_FLIP
+//#define MAG_AK8975_ALIGN CW180_DEG_FLIP
 
 #define LED0
 #define LED1
 
+#define USB_IO
+
 #define USE_VCP
-#define USE_USART1
-#define USE_USART2
-#define USE_USART3
+#define USE_UART1
+#define USE_UART2
+#define USE_UART3
 #define USE_UART4
 #define USE_UART5
 #define SERIAL_PORT_COUNT 4
@@ -148,7 +150,7 @@
 #define I2C2_SDA_PIN         GPIO_Pin_10
 #define I2C2_SDA_PIN_SOURCE  GPIO_PinSource10
 #define I2C2_SDA_CLK_SOURCE  RCC_AHBPeriph_GPIOA
-
+/*
 #define USE_ADC
 
 #define ADC_INSTANCE                ADC1
@@ -166,7 +168,7 @@
 #define EXTERNAL1_ADC_GPIO          GPIOA
 #define EXTERNAL1_ADC_GPIO_PIN      GPIO_Pin_5
 #define EXTERNAL1_ADC_CHANNEL       ADC_Channel_5
-
+*/
 #define BLACKBOX
 #define GPS
 #define GTUNE
@@ -175,7 +177,7 @@
 #define TELEMETRY
 #define USE_SERVOS
 #define USE_CLI
-#define SONAR
+//#define SONAR
 
 //#define LED_STRIP
 #if 0 // <----------
@@ -211,12 +213,12 @@
 #define WS2811_IRQ                      DMA1_Channel7_IRQn
 #endif
 
-#define USE_SERIAL_1WIRE
+//#define USE_SERIAL_1WIRE
 
-#define S1W_TX_GPIO         GPIOB
-#define S1W_TX_PIN          GPIO_Pin_6
-#define S1W_RX_GPIO         GPIOB
-#define S1W_RX_PIN          GPIO_Pin_7
+//#define S1W_TX_GPIO         GPIOB
+//#define S1W_TX_PIN          GPIO_Pin_6
+//#define S1W_RX_GPIO         GPIOB
+//#define S1W_RX_PIN          GPIO_Pin_7
 
 #define SPEKTRUM_BIND
 // UART5, PD2

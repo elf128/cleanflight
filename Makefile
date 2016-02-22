@@ -13,6 +13,9 @@
 ###############################################################################
 # Things that the user might override on the commandline
 #
+#PATH := $(PATH):/home/vlad/usr/gcc-arm-none-eabi-5_2-2015q4/bin/:/home/vlad/usr/gcc-arm-none-eabi-5_2-2015q4/arm-none-eabi/bin/
+PATH := $(PATH):/home/vlad/usr/gcc-arm-none-eabi-4_9-2014q4/bin/:/home/vlad/usr/gcc-arm-none-eabi-4_9-2014q4/arm-none-eabi/bin/
+#PATH := $(PATH):/home/vlad/usr/gcc-arm-none-eabi-4_8-2014q2/bin/:/home/vlad/usr/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/bin/
 
 # The target to build, see VALID_TARGETS below
 TARGET		?= NAZE
@@ -22,7 +25,6 @@ OPTIONS		?=
 
 # Debugger optons, must be empty or GDB
 DEBUG ?= 
-#DEBUG ?= GDB
 
 # Serial port/Device for flashing
 SERIAL_DEVICE	?= $(firstword $(wildcard /dev/ttyUSB*) no-port-found)
