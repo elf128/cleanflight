@@ -21,7 +21,8 @@ TARGET		?= NAZE
 OPTIONS		?=
 
 # Debugger optons, must be empty or GDB
-DEBUG ?=
+DEBUG ?= 
+#DEBUG ?= GDB
 
 # Serial port/Device for flashing
 SERIAL_DEVICE	?= $(firstword $(wildcard /dev/ttyUSB*) no-port-found)
@@ -35,7 +36,7 @@ FLASH_SIZE ?=
 
 FORKNAME			 = cleanflight
 
-VALID_TARGETS	 = ALIENWIIF1 ALIENWIIF3 CC3D CHEBUZZF3 CJMCU COLIBRI_RACE LUX_RACE EUSTM32F103RC MOTOLAB NAZE NAZE32PRO OLIMEXINO PORT103R RMDO SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY 
+VALID_TARGETS	 = ALIENWIIF1 ALIENWIIF3 CC3D CHEBUZZF3 CJMCU COLIBRI_RACE LUX_RACE EUSTM32F103RC MOTOLAB NAZE NAZE32PRO OLIMEXINO PORT103R RMDO SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY RGFC_OSD 
 
 # Configure default flash sizes for the targets
 ifeq ($(FLASH_SIZE),)
@@ -43,7 +44,7 @@ ifeq ($(TARGET),$(filter $(TARGET),CJMCU))
 FLASH_SIZE = 64
 else ifeq ($(TARGET),$(filter $(TARGET),ALIENWIIF1 CC3D NAZE OLIMEXINO RMDO))
 FLASH_SIZE = 128
-else ifeq ($(TARGET),$(filter $(TARGET),ALIENWIIF3 CHEBUZZF3 COLIBRI_RACE LUX_RACE EUSTM32F103RC MOTOLAB NAZE32PRO PORT103R SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY))
+else ifeq ($(TARGET),$(filter $(TARGET),ALIENWIIF3 CHEBUZZF3 COLIBRI_RACE LUX_RACE EUSTM32F103RC MOTOLAB NAZE32PRO PORT103R SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY RGFC_OSD))
 FLASH_SIZE = 256
 else
 $(error FLASH_SIZE not configured for target)
@@ -70,7 +71,7 @@ FATFS_SRC = $(notdir $(wildcard $(FATFS_DIR)/*.c))
 
 CSOURCES        := $(shell find $(SRC_DIR) -name '*.c')
 
-ifeq ($(TARGET),$(filter $(TARGET),ALIENWIIF3 CHEBUZZF3 COLIBRI_RACE LUX_RACE MOTOLAB NAZE32PRO RMDO SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY))
+ifeq ($(TARGET),$(filter $(TARGET),ALIENWIIF3 CHEBUZZF3 COLIBRI_RACE LUX_RACE MOTOLAB NAZE32PRO RMDO SPARKY SPRACINGF3 SPRACINGF3MINI STM32F3DISCOVERY RGFC_OSD))
 
 STDPERIPH_DIR	= $(ROOT)/lib/main/STM32F30x_StdPeriph_Driver
 
@@ -127,6 +128,11 @@ ifeq ($(TARGET),RMDO)
 # RMDO is a VARIANT of SPRACINGF3
 TARGET_FLAGS := $(TARGET_FLAGS) -DSPRACINGF3
 endif
+
+#ifeq ($(TARGET),RGFC_OSD)
+# RGFC_OSD is a VARIANT of SPRACINGF3
+#TARGET_FLAGS := $(TARGET_FLAGS) -DSPRACINGF3
+#endif
 
 else ifeq ($(TARGET),$(filter $(TARGET),EUSTM32F103RC PORT103R))
 
@@ -664,6 +670,20 @@ SPRACINGF3MINI_SRC	 = \
 		   $(VCP_SRC)
 #		   $(FATFS_SRC)
 
+RGFC_OSD_SRC = \
+		   $(STM32F30x_COMMON_SRC) \
+		   drivers/display_ug2864hsweg01.c \
+		   drivers/accgyro_mpu.c \
+		   drivers/accgyro_mpu6500.c \
+		   drivers/accgyro_spi_mpu6500.c \
+		   drivers/barometer_ms5611.c \
+		   drivers/compass_ak8975.c \
+		   drivers/serial_usb_vcp.c \
+		   drivers/sonar_hcsr04.c \
+		   $(HIGHEND_SRC) \
+		   $(COMMON_SRC) \
+		   $(VCP_SRC)
+
 # Search path and source files for the ST stdperiph library
 VPATH		:= $(VPATH):$(STDPERIPH_DIR)/src
 
@@ -797,6 +817,11 @@ st-flash_$(TARGET): $(TARGET_BIN)
 
 ## st-flash    : flash firmware (.bin) onto flight controller
 st-flash: st-flash_$(TARGET)
+
+st-link_$(TARGET): $(TARGET_BIN)
+	ST-LINK_CLI.exe -c SWD SWCLK=8 UR LPM -P $< 0x08000000 -V -Halt
+
+st-link: st-link_$(TARGET)
 
 unbrick_$(TARGET): $(TARGET_HEX)
 	stty -F $(SERIAL_DEVICE) raw speed 115200 -crtscts cs8 -parenb -cstopb -ixon

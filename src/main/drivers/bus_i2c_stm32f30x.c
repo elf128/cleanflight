@@ -30,6 +30,10 @@
 
 #ifndef SOFT_I2C
 
+
+#if !defined(I2C1_SCL_GPIO)
+#define I2C_SHORT_TIMEOUT             ((uint32_t)0x1000)
+#define I2C_LONG_TIMEOUT             ((uint32_t)(10 * I2C_SHORT_TIMEOUT))
 #define I2C1_SCL_GPIO        GPIOB
 #define I2C1_SCL_GPIO_AF     GPIO_AF_4
 #define I2C1_SCL_PIN         GPIO_Pin_6
@@ -40,6 +44,7 @@
 #define I2C1_SDA_PIN         GPIO_Pin_7
 #define I2C1_SDA_PIN_SOURCE  GPIO_PinSource7
 #define I2C1_SDA_CLK_SOURCE  RCC_AHBPeriph_GPIOB
+#endif
 
 #if !defined(I2C2_SCL_GPIO)
 #define I2C2_SCL_GPIO        GPIOF
