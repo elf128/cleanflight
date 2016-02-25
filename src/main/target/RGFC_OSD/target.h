@@ -32,7 +32,7 @@
 #define MPU6500_SPI_INSTANCE             SPI2
 
 #define USE_SPI
-//#define USE_SPI_DEVICE_1
+#define USE_SPI_DEVICE_1
 #define USE_SPI_DEVICE_2
 
 #define SPI1_GPIO               GPIOB
@@ -60,15 +60,15 @@
 #define GYRO
 #define USE_GYRO_MPU6500
 #define USE_GYRO_SPI_MPU6500
-#define GYRO_MPU6500_ALIGN CW270_DEG
+#define GYRO_MPU6500_ALIGN CW90_DEG
 
 #define ACC
 #define USE_ACC_MPU6500
 #define USE_ACC_SPI_MPU6500
-#define ACC_MPU6500_ALIGN CW270_DEG
+#define ACC_MPU6500_ALIGN CW90_DEG
 
-#define USE_MPU_DATA_READY_SIGNAL
-#define ENSURE_MPU_DATA_READY_IS_LOW
+//#define USE_MPU_DATA_READY_SIGNAL
+//#define ENSURE_MPU_DATA_READY_IS_LOW
 
 //#define BARO
 //#define USE_BARO_MS5611
@@ -77,6 +77,13 @@
 //#define USE_MAG_AK8975
 
 //#define MAG_AK8975_ALIGN CW180_DEG_FLIP
+
+#define USE_FLASHFS
+#define USE_FLASH_M25P16
+
+#define M25P16_CS_GPIO          GPIOB
+#define M25P16_CS_PIN           GPIO_Pin_12
+#define M25P16_SPI_INSTANCE     SPI1
 
 #define LED0
 #define LED1
@@ -89,7 +96,7 @@
 #define USE_UART3
 #define USE_UART4
 #define USE_UART5
-#define SERIAL_PORT_COUNT 4
+#define SERIAL_PORT_COUNT 6
 
 #define UART1_TX_PIN        GPIO_Pin_4 // PC4
 #define UART1_RX_PIN        GPIO_Pin_5 // PC5
@@ -150,7 +157,7 @@
 #define I2C2_SDA_PIN         GPIO_Pin_10
 #define I2C2_SDA_PIN_SOURCE  GPIO_PinSource10
 #define I2C2_SDA_CLK_SOURCE  RCC_AHBPeriph_GPIOA
-/*
+
 #define USE_ADC
 
 #define ADC_INSTANCE                ADC1
@@ -168,7 +175,7 @@
 #define EXTERNAL1_ADC_GPIO          GPIOA
 #define EXTERNAL1_ADC_GPIO_PIN      GPIO_Pin_5
 #define EXTERNAL1_ADC_CHANNEL       ADC_Channel_5
-*/
+
 #define BLACKBOX
 #define GPS
 #define GTUNE

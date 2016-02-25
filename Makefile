@@ -24,7 +24,7 @@ TARGET		?= NAZE
 OPTIONS		?=
 
 # Debugger optons, must be empty or GDB
-DEBUG ?= 
+DEBUG ?= GDB
 
 # Serial port/Device for flashing
 SERIAL_DEVICE	?= $(firstword $(wildcard /dev/ttyUSB*) no-port-found)
@@ -131,10 +131,12 @@ ifeq ($(TARGET),RMDO)
 TARGET_FLAGS := $(TARGET_FLAGS) -DSPRACINGF3
 endif
 
-#ifeq ($(TARGET),RGFC_OSD)
-# RGFC_OSD is a VARIANT of SPRACINGF3
-#TARGET_FLAGS := $(TARGET_FLAGS) -DSPRACINGF3
-#endif
+ifeq ($(TARGET),RGFC_OSD)
+# Make sure our system clock right.
+DEVICE_FLAGS := $(DEVICE_FLAGS) -DHSE_VALUE="((uint32_t)12000000)" -DHSI_VALUE="((uint32_t)12000000)"
+else
+DEVICE_FLAGS := $(DEVICE_FLAGS) -DHSE_VALUE="((uint32_t)8000000)" -DHSI_VALUE="((uint32_t)8000000)"
+endif
 
 else ifeq ($(TARGET),$(filter $(TARGET),EUSTM32F103RC PORT103R))
 
@@ -682,6 +684,8 @@ RGFC_OSD_SRC = \
 		   drivers/compass_ak8975.c \
 		   drivers/serial_usb_vcp.c \
 		   drivers/sonar_hcsr04.c \
+		   drivers/flash_m25p16.c \
+		   io/flashfs.c \
 		   $(HIGHEND_SRC) \
 		   $(COMMON_SRC) \
 		   $(VCP_SRC)
