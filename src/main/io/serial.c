@@ -254,6 +254,24 @@ bool doesConfigurationUsePort(serialPortIdentifier_e identifier)
     return candidate != NULL && candidate->functionMask;
 }
 
+bool doesConfigurationUsePortTx(serialPortIdentifier_e identifier)
+{
+    serialPortConfig_t *candidate = serialFindPortConfiguration(identifier);
+    return candidate != NULL && (candidate->functionMask & (
+            FUNCTION_MSP |
+			ALL_TELEMETRY_FUNCTIONS_MASK |
+			FUNCTION_BLACKBOX ));
+}
+bool doesConfigurationUsePortRx(serialPortIdentifier_e identifier)
+{
+    serialPortConfig_t *candidate = serialFindPortConfiguration(identifier);
+    return candidate != NULL && (candidate->functionMask & (
+    		FUNCTION_MSP |
+			FUNCTION_GPS |
+			FUNCTION_RX_SERIAL |
+			FUNCTION_IR_TIMING ));
+}
+
 serialPort_t *openSerialPort(
     serialPortIdentifier_e identifier,
     serialPortFunction_e function,

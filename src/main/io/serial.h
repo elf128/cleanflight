@@ -104,6 +104,8 @@ bool serialIsPortAvailable(serialPortIdentifier_e identifier);
 bool isSerialConfigValid(serialConfig_t *serialConfig);
 serialPortConfig_t *serialFindPortConfiguration(serialPortIdentifier_e identifier);
 bool doesConfigurationUsePort(serialPortIdentifier_e portIdentifier);
+bool doesConfigurationUsePortRx(serialPortIdentifier_e portIdentifier);
+bool doesConfigurationUsePortTx(serialPortIdentifier_e portIdentifier);
 serialPortConfig_t *findSerialPortConfig(serialPortFunction_e function);
 serialPortConfig_t *findNextSerialPortConfig(serialPortFunction_e function);
 
