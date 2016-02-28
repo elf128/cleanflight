@@ -59,7 +59,8 @@ typedef struct drv_pwm_config_s {
     bool useRSSIADC;
     bool useCurrentMeterADC;
 #if defined(USE_UART2)
-    bool useUART2;
+    bool useUARTRX2;
+    bool useUARTTX2;
 #endif
 #if defined(USE_UART3)
     bool useUART3;

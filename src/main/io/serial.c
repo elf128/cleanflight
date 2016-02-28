@@ -266,8 +266,7 @@ bool doesConfigurationUsePortRx(serialPortIdentifier_e identifier)
     return candidate != NULL && (candidate->functionMask & (
     		FUNCTION_MSP |
 			FUNCTION_GPS |
-			FUNCTION_RX_SERIAL |
-			FUNCTION_IR_TIMING ));
+			FUNCTION_RX_SERIAL ));
 }
 
 serialPort_t *openSerialPort(
