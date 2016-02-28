@@ -33,6 +33,7 @@ typedef enum {
     FUNCTION_TELEMETRY_SMARTPORT = (1 << 5), // 32
     FUNCTION_RX_SERIAL           = (1 << 6), // 64
     FUNCTION_BLACKBOX            = (1 << 7), // 128
+	FUNCTION_IR_TIMING           = (1 << 8), // 256 WARNING. Seems like it's first time second byte is in use. Someones code can be in danger.
 } serialPortFunction_e;
 
 typedef enum {

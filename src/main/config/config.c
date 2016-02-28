@@ -54,6 +54,7 @@
 #include "io/rc_curves.h"
 #include "io/ledstrip.h"
 #include "io/gps.h"
+#include "io/serial_ir_rx.h"
 
 #include "rx/rx.h"
 
@@ -271,10 +272,9 @@ void resetSerialConfig(serialConfig_t *serialConfig)
         serialConfig->portConfigs[index].gps_baudrateIndex = BAUD_57600;
         serialConfig->portConfigs[index].telemetry_baudrateIndex = BAUD_AUTO;
         serialConfig->portConfigs[index].blackbox_baudrateIndex = BAUD_115200;
-        serialConfig->portConfigs[index].functionMask = FUNCTION_MSP;
     }
 
-//    serialConfig->portConfigs[0].functionMask = FUNCTION_MSP;
+    serialConfig->portConfigs[0].functionMask = FUNCTION_MSP;
 
 #if defined(USE_VCP)
     // This allows MSP connection via USART & VCP so the board can be reconfigured.
@@ -532,6 +532,14 @@ STATIC_UNIT_TESTED void resetConf(void)
     featureSet(FEATURE_VBAT);
     featureSet(FEATURE_LED_STRIP);
     featureSet(FEATURE_FAILSAFE);
+#endif
+
+#ifdef USE_IR_TIMING
+
+#ifdef RGFC_OSD
+    featureSet(FEATURE_IR_TIMING);
+    masterConfig.serialConfig.portConfigs[3].functionMask = FUNCTION_IR_TIMING;
+#endif
 #endif
 
     // alternative defaults settings for ALIENWIIF1 and ALIENWIIF3 targets

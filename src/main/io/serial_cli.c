@@ -58,6 +58,7 @@
 #include "io/flashfs.h"
 #include "io/beeper.h"
 #include "io/asyncfatfs/asyncfatfs.h"
+#include "io/serial_ir_rx.h"
 
 #include "rx/rx.h"
 #include "rx/spektrum.h"
@@ -183,7 +184,7 @@ static const char * const featureNames[] = {
     "SERVO_TILT", "SOFTSERIAL", "GPS", "FAILSAFE",
     "SONAR", "TELEMETRY", "CURRENT_METER", "3D", "RX_PARALLEL_PWM",
     "RX_MSP", "RSSI_ADC", "LED_STRIP", "DISPLAY", "ONESHOT125",
-    "BLACKBOX", "CHANNEL_FORWARDING", "TRANSPONDER", NULL
+    "BLACKBOX", "CHANNEL_FORWARDING", "TRANSPONDER","IR_TIMING", NULL
 };
 
 // sync this with rxFailsafeChannelMode_e
@@ -706,6 +707,11 @@ const clivalue_t valueTable[] = {
     { "blackbox_rate_num",          VAR_UINT8  | MASTER_VALUE,  &masterConfig.blackbox_rate_num, .config.minmax = { 1,  32 } },
     { "blackbox_rate_denom",        VAR_UINT8  | MASTER_VALUE,  &masterConfig.blackbox_rate_denom, .config.minmax = { 1,  32 } },
     { "blackbox_device",            VAR_UINT8  | MASTER_VALUE | MODE_LOOKUP,  &masterConfig.blackbox_device, .config.lookup = { TABLE_BLACKBOX_DEVICE } },
+#endif
+
+#ifdef USE_IR_TIMING
+    { "ir_timing_gate_num",          VAR_UINT8  | MASTER_VALUE,  &masterConfig.irrxData.registeredGates, .config.minmax = { 1,  MAX_GATES } },
+    { "ir_timing_main_gate",         VAR_UINT32 | MASTER_VALUE,  &masterConfig.irrxData.GateID[0], .config.minmax = { 0, 0xFFFFFFFF } },
 #endif
 
     { "magzero_x",                  VAR_INT16  | MASTER_VALUE, &masterConfig.magZero.raw[X], .config.minmax = { -32768,  32767 } },

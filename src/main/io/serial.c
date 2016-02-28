@@ -200,6 +200,8 @@ bool isSerialConfigValid(serialConfig_t *serialConfigToCheck)
      * - Only MSP is allowed to be shared with EITHER any telemetry OR blackbox.
      * - No other sharing combinations are valid.
      */
+
+    // To-do: Add propper sharing of IR sensor with Telemetry.
     uint8_t mspPortCount = 0;
 
     uint8_t index;

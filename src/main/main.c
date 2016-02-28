@@ -67,6 +67,7 @@
 #include "io/display.h"
 #include "io/asyncfatfs/asyncfatfs.h"
 #include "io/transponder_ir.h"
+#include "io/serial_ir_rx.h"
 
 #include "sensors/sensors.h"
 #include "sensors/sonar.h"
@@ -560,6 +561,12 @@ void init(void)
     }
 #endif
 
+#ifdef USE_IR_TIMING
+    if ( feature( FEATURE_IR_TIMING ) ) {
+        initSerialIR( &masterConfig.irrxData );
+    }
+#endif
+
 #ifdef USE_FLASHFS
 #ifdef NAZE
     if (hardwareRevision == NAZE32_REV5) {
@@ -707,6 +714,9 @@ int main(void) {
 #endif
 #ifdef TRANSPONDER
     setTaskEnabled(TASK_TRANSPONDER, feature(FEATURE_TRANSPONDER));
+#endif
+#ifdef USE_IR_TIMING
+    setTaskEnabled(TASK_IR_TIMING, feature( FEATURE_IR_TIMING ) );
 #endif
 
     while (1) {

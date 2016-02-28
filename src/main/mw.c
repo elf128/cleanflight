@@ -66,7 +66,7 @@
 #include "io/statusindicator.h"
 #include "io/asyncfatfs/asyncfatfs.h"
 #include "io/transponder_ir.h"
-
+#include "io/serial_ir_rx.h"
 
 #include "rx/rx.h"
 #include "rx/msp.h"
@@ -900,6 +900,15 @@ void taskTransponder(void)
 {
     if (feature(FEATURE_TRANSPONDER)) {
         updateTransponder();
+    }
+}
+#endif
+
+#ifdef USE_IR_TIMING
+void taskIrTiming(void)
+{
+    if (feature(FEATURE_IR_TIMING)) {
+        irrxTick();
     }
 }
 #endif
