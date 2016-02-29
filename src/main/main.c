@@ -347,8 +347,8 @@ void init(void)
     else
         pwm_params.airplane = false;
 #if defined(USE_UART2)
-    pwm_params.useUARTRX2 = doesConfigurationUsePort(SERIAL_PORT_UART2);
-    pwm_params.useUARTTX2 = doesConfigurationUsePort(SERIAL_PORT_UART2);
+    pwm_params.useUARTRX2 = doesConfigurationUsePortRx(SERIAL_PORT_UART2);
+    pwm_params.useUARTTX2 = doesConfigurationUsePortTx(SERIAL_PORT_UART2);
 #endif
 #if defined(USE_UART3)
     pwm_params.useUART3 = doesConfigurationUsePort(SERIAL_PORT_UART3);
